@@ -1,0 +1,36 @@
+#!/bin/sh
+
+_DOCUMENT_COUNT=$#
+_INDEX=1
+
+_log() {
+  echo ${_DOCUMENT} - $1
+}
+
+_print_document() {
+  _log "Printing even pages"
+  # if landscape, then this should be 5
+  print-even
+
+  _log "Place paper back into the printer in EXACT OUTPUT ORDER (face down in tray) then press ENTER"
+  read _IS_DONE
+
+  _log "Printing odd pages"
+  print-odd
+}
+
+_wait_between_documents() {
+  if [ "$_INDEX" -lt "$_DOCUMENT_COUNT" ]
+  then
+    _log "Press ENTER when document is finished printing ($_INDEX) $_DOCUMENT_COUNT"
+    read _IS_DONE
+
+    ((_INDEX++))
+  fi
+}
+
+for _DOCUMENT in $@
+do
+  _print_document
+  _wait_between_documents
+done

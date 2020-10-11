@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. _LIBRARY_PATH_/_APPLICATION_NAME_/include.sh
+
+_print page-set=odd
